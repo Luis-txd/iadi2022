@@ -40,6 +40,10 @@ class MessageApplication(
         messages.deleteAll()
     }
 
+    //web security works by filtering requests
+    //spring security only works @ presentation layer (but it should also work lower than that)
+    //controller - security conditions
+
     fun delete(id: Long) {
         messages.deleteById(id)
     }

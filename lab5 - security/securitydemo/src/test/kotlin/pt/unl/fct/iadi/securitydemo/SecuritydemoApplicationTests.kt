@@ -83,7 +83,9 @@ class SecuritydemoApplicationTests {
 
         Mockito.`when`(messages.findById(anyLong())).thenReturn(Optional.of(initialMessages[0]))
         Mockito.`when`(messages.delete(any())).then { println("Deleted") } // Ignoring the behaviour, testing only security
-
+        //not a good test for delete, but for security policies
+        // roles kept in database
+            // i am the driver of a truck if i have a relation with that truck
         mvc.delete("/api/messages/1") {
             accept = MediaType.APPLICATION_JSON
         }.andExpect {
@@ -98,7 +100,7 @@ class SecuritydemoApplicationTests {
         Mockito.`when`(messages.findById(anyLong())).thenReturn(Optional.of(initialMessages[0]))
         Mockito.`when`(messages.delete(any())).then { println("Deleted") } // Ignoring the behaviour, testing only security
 
-        mvc.delete("/api/messages/1") {
+        mvc.delete("/api/messages/1") { //user B cant delete message 1 from user a
             accept = MediaType.APPLICATION_JSON
         }.andExpect {
             status { isForbidden() }
@@ -111,7 +113,7 @@ class SecuritydemoApplicationTests {
 
         Mockito.`when`(messages.findById(anyLong())).thenReturn(Optional.of(initialMessages[0]))
         Mockito.`when`(messages.delete(any())).then { println("Deleted") } // Ignoring the behaviour, testing only security
-
+        //delete message as admin
         mvc.delete("/api/messages/1") {
             accept = MediaType.APPLICATION_JSON
         }.andExpect {

@@ -35,12 +35,12 @@ import org.springframework.security.web.SecurityFilterChain
 class SecurityConfig {
 
     @Bean
-    fun filterChain(http: HttpSecurity): SecurityFilterChain? {
+    fun filterChain(http: HttpSecurity): SecurityFilterChain? { //we dont have to do this for each URL (use e.b. in line 42 to cover multiple urls)
         http.csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/hello").permitAll()
-            .antMatchers("/api/admin/**").hasRole("ADMIN")
-            .anyRequest().authenticated()
+            .authorizeRequests()                            //how to handle requests based on url (followed by matchers beneath)
+            .antMatchers("/hello").permitAll()              //permitAll() -> public url
+            .antMatchers("/api/admin/**").hasRole("ADMIN")  //or ".access("hasRole() and has....() ")
+            .anyRequest().authenticated()                   //any other request must be authenticated
             .and()
             .httpBasic()
         return http.build()

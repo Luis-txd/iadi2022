@@ -50,7 +50,7 @@ interface MessageAPI {
     fun getOne(@PathVariable id:Long):MessageDTO
 
     @DeleteMapping("{id}")
-    @CanDeleteMyMessages
+    @CanDeleteMyMessages //use those classes
     fun delete(@PathVariable id:Long): Unit
 }
 
